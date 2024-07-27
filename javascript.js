@@ -58,6 +58,28 @@ let assignOperator = function(operValue) {
     }
 }
 
+let nullify = function() {
+    num1 = null;
+    num2 = null;
+    operator = null;
+    asgValue = 'num1'
+}
+let changeSign = function() {
+    if (asgValue === 'num1' && num1) {
+        num1 *= -1;
+    } else if (asgValue === 'num2' && num2) {
+        num2 *= -1;
+    }
+}
+
+let addPercent = function() {
+    if (asgValue === 'num1' && num1) {
+        num1 /= 100;
+    } else if (asgValue === 'num2' && num2) {
+        num2 /= 100;
+    }
+}
+
 calculator.addEventListener('click', (event) => {
     let target = event.target;
     let targetClass = event.target.className;
@@ -68,7 +90,13 @@ calculator.addEventListener('click', (event) => {
     } else if (targetClass === 'operator') {
         let operValue  = target.id;
         assignOperator(operValue);
-    } else if ()
+    } else if (target.id === 'AC') {
+        nullify();     
+    } else if (target.id === 'sign') {
+        changeSign();
+    } else if (target.id === 'percent') {
+        addPercent();
+    }
 
     let updateDisplay = new CustomEvent('updateDisplay')
     
@@ -84,3 +112,5 @@ display.addEventListener('updateDisplay', () => {
         display.textContent = '';
     }
 })
+
+//test
