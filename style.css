@@ -10,6 +10,13 @@
 
 }
 
+.display-container {
+    font-size: 72px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
 .row-container {
     display: flex;
     flex-direction: row;
@@ -32,7 +39,6 @@
 
 button {
     flex: 1;
-    style
 
 }
 
