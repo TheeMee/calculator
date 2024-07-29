@@ -166,3 +166,7 @@ display.addEventListener('updateDisplay', () => {
         display.textContent = '';
     }
 })
+
+
+and what if i add this
+let i = 1;
