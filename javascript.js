@@ -2,6 +2,7 @@ const calculator = document.querySelector('.calculator-container');
 
 const numberBtn = document.querySelectorAll('.number');
 const operBtn = document.querySelectorAll('.oprator');
+const backBtn = document.querySelector('#back')
 
 const display = document.querySelector('.display-container');
 
@@ -96,14 +97,52 @@ let addPercent = function() {
 
 
 let truncate = function(num) {
-    decimals = num % 1;
-    integers = num - decimals;
+    let decimals = num % 1;
+    let integers = num - decimals;
     if (String(decimals).length <= 5) {
         return num;
     } else {
         decimals = decimals.toFixed(5);
         num = integers + Number(decimals);
         return num;
+    }
+}
+
+let cutNumber = function(num) {
+    let numStr = String(num);
+    // if number is decimal and all decimals digits are removed
+    if (asgDecimal && (num%1 === 0)) {
+        asgDecimal = false
+        return num;
+    }
+    let cutNum = numStr.slice(0, numStr.length-1)
+
+    return Number(cutNum);
+}
+
+let reassignNum1 = function() {
+    asgValue = 'num1';
+    num2 = null;
+    operator = 0;
+}
+
+let undoInput = function() {
+    if (asgValue === 'num1') {
+        const numLength = String(num1).length
+        if(numLength >= 2) {
+            num1 = cutNumber(num1);
+        } else if (numLength <= 1) {
+            num1 = 0;
+        }
+    } else if (asgValue === 'num2') {
+        const numLength = String(num2).length
+        if(numLength >= 2) {
+            num2 = cutNumber(num2);
+        } else if (num2 === 0) {
+            reassignNum1();
+        } else if (numLength === 1) {
+            num2 = 0;
+        } 
     }
 }
 
@@ -131,6 +170,8 @@ calculator.addEventListener('click', (event) => {
         addPercent();
     } else if (target.id === '.') {
         asgDecimal = true;
+    } else if (target.id === 'back') {
+        undoInput();
     }
 
     num1 = truncate(num1);
@@ -168,6 +209,3 @@ display.addEventListener('updateDisplay', () => {
         display.textContent = '';
     }
 })
-
-
-//this is the main branch

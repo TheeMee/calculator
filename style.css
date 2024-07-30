@@ -33,10 +33,6 @@
     align-items: stretch;
 }
 
-#zero-button {
-    width: 240px;
-}
-
 button {
     flex: 1;
 
