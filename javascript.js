@@ -6,7 +6,7 @@ const operBtn = document.querySelectorAll('.oprator');
 const display = document.querySelector('.display-container');
 
 let num1 = 0;
-let num2 = 0;
+let num2 = null;
 let operator;
 let asgDecimal = false;
 
@@ -47,6 +47,8 @@ let assignValue = function(value) {
             decimalPlaces = decimalPlaces + String(value);
             decimalPlaces = '0.' + decimalPlaces;
             num2 = Number(integerPlaces) + Number(decimalPlaces);          
+        } else if (num2 === null) {
+            num2 = value;
         } else num2 = (num2 * 10) + value;
         }
     }
@@ -58,20 +60,20 @@ let assignOperator = function(operValue) {
 
     if (operator === '=' && !num1) {
         return; 
-    } else if (num1 && !num2) {
+    } else if (num1 && num2 === null) {
         operator = operValue;
-        asgValue = 'num2';
-    } else if (num1 && num2) {
+        asgValue = 'num2';        
+    } else if (num1 && !(num2 === null)) {
         num1 = calResult();
         operator = operValue;
-        num2 = 0;
+        num2 = null;
         asgValue = (operator === '=')? 'num1' : 'num2';        
     }
 }
 
 let nullify = function() {
     num1 = 0;
-    num2 = 0;
+    num2 = null;
     operator = 0;
     asgValue = 'num1'
     asgDecimal = false;
@@ -143,7 +145,7 @@ calculator.addEventListener('click', (event) => {
 
 display.addEventListener('updateDisplay', () => {
 
-    if (num1 === NaN || num2 === NaN) {
+    if (num1 === Infinity || num2 === Infinity) {
         nullify();
         display.textContent = 'You cannot do that!';
     } else if (asgValue === 'num1') {
@@ -157,7 +159,7 @@ display.addEventListener('updateDisplay', () => {
             if (!String(num2).includes('.')) {
                 display.textContent = num2 + '.';
             } else display.textContent = num2;
-        } else if (!num2) {
+        } else if (num2 === null) {
             display.textContent = num1;
         } else display.textContent = num2;
     } else if (asgValue === 'operator') {
@@ -168,5 +170,4 @@ display.addEventListener('updateDisplay', () => {
 })
 
 
-and what if i add thisgit 
-let i = 1;
+//this is the main branch
